@@ -2,7 +2,21 @@
 import Hero from '@/components/Hero.vue';
 import HomeCards from '@/components/HomeCards.vue';
 import JobListing from '@/components/JobListings.vue';
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
+
+const validar = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        router.push('/login');
+    }
+}
+
+onMounted(() => {
+    validar();
+})
 </script>
 
 <template>

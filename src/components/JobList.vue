@@ -28,7 +28,8 @@ const atualizar = async () => {
     try {
         const token = localStorage.getItem('token')
         const user_aut = await axiosInstance.get('/profile')
-        if (user_aut.data.id === "e64efaf4-70b7-4b3d-b9d0-61d0a58c34a3") {
+        console.log(user_aut.data.email)
+        if (user_aut.data.email === "Alex@teste.com") {
             const response = await axiosInstance.put(`/profile/${props.user.id}`, {
                 name: props.user.name,
                 email: props.user.email,
@@ -48,6 +49,10 @@ const atualizar = async () => {
     }
 }
 
+// const criar = async () => {
+
+// }
+
 </script>
 
 
@@ -65,7 +70,7 @@ const atualizar = async () => {
                     </div>
                     <div v-if="showPopUp"
                         class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                        <div class="bg-white p-6 rounded-lg shadow-lg max-w-xl w-full flex  justify-between flex-col">
+                        <div class="bg-white p-6 rounded-lg shadow-lg max-w-xl w-full flex justify-between flex-col">
                             <div class="flex justify-center items-center">
                                 <h2 class="text-lg font-bold mb-4 ">Atualize a quantidade de bolinhos do {{ user.name }}
                                 </h2>

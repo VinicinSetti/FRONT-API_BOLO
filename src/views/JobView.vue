@@ -1,7 +1,6 @@
 <script setup>
 import JobList from '@/components/JobList.vue';
 import { ref, onMounted, reactive } from 'vue';
-import { RouterLink } from 'vue-router';
 import axiosInstance from '@/services/api';
 // import { parseAst } from 'vite';
 
@@ -26,14 +25,26 @@ const addCaloteiro = async () => {
     const response = await axiosInstance.post('/users', {
         name: data.name,
         email: data.email,
-        password: data.password
+        password: data.password,
+        qtd_bolin: 0
     },
-    {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-    });
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+
+    const atualizarUsers = await axiosInstance.get('/users');
+        users.value = atualizarUsers.data;
 }
+
+const showPopUp = ref(false)
+
+const togglePopUp = () => {
+    showPopUp.value = !showPopUp.value;
+}
+
+
 
 onMounted(async () => {
     try {
@@ -44,6 +55,7 @@ onMounted(async () => {
         console.error('Erro ao obter listagem:', error.response?.data?.message || error.message);
     }
 })
+
 </script>
 
 
@@ -73,43 +85,49 @@ onMounted(async () => {
                 <aside>
                     <!-- Company Info -->
                     <div class="bg-white p-6 rounded-lg shadow-md">
-                        <h3 class="text-xl font-bold mb-6">Company Info</h3>
 
-                        <h2 class="text-2xl">NewTek Solutions</h2>
-
-                        <p class="my-2">
-                            NewTek Solutions is a leading technology company specializing in
-                            web development and digital solutions. We pride ourselves on
-                            delivering high-quality products and services to our clients
-                            while fostering a collaborative and innovative work environment.
-                        </p>
+                        <h1 class="text-2xl">Quer adicionar mais um caloteiro?</h1>
 
                         <hr class="my-4" />
 
                         <h3 class="text-xl">Digite o nome do caloteiro:</h3>
 
-                        <input v-model="data.name" type="text" class="my-2 bg-green-100 p-2 font-bold w-full" placeholder="Fulano Ciclano">
+                        <input v-model="data.name" type="text" class="my-2 bg-green-100 p-2 font-bold w-full"
+                            placeholder="Fulano Ciclano">
 
                         <h3 class="text-xl">Digite o email do caloteior:</h3>
 
-                        <input v-model="data.emaile" type="text" class="my-2 bg-green-100 p-2 font-bold w-full"
+                        <input v-model="data.email" type="text" class="my-2 bg-green-100 p-2 font-bold w-full"
                             placeholder="fulano@exemplo.com">
 
                         <h3 class="text-xl">Digite a senha do caloteiro:</h3>
 
-                        <input v-model="data.password" type="text" class="my-2 bg-green-100 p-2 font-bold w-full" placeholder="senha123">
+                        <input v-model="data.password" type="password" class="my-2 bg-green-100 p-2 font-bold w-full"
+                            placeholder="senha123">
                     </div>
 
                     <!-- Manage -->
                     <div class="bg-white p-5 rounded-lg shadow-md mt-6">
-                        <!-- <h3 class="text-xl font-bold mb-6">Manage Job</h3> -->
-                        <!-- <a href="add-job.html"
-                            class="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">Edit
-                            Job</a> -->
-                        <button type="button" @click="addCaloteiro"
+                        <button type="button" @click="addCaloteiro(); togglePopUp()"
                             class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-0 block">
                             Adicionar caloteiro
                         </button>
+                    </div>
+                    <div v-if="showPopUp"
+                        class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full flex  justify-between flex-col">
+                            <div class="flex justify-end">
+                                <button @click="togglePopUp"
+                                    class="px-2 py-1 bg-gray-500 text-white rounded hover:bg-gray-600">
+                                    X
+                                </button>
+                            </div>
+                            <div class="flex justify-center items-center">
+                                <div class="pb-8">
+                                    <p class="block text-xl font-medium text-gray-600">Caloteiro adicionado com sucesso!</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </aside>
             </div>
