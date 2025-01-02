@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, useRoute, useRouter } from 'vue-router';
-import logo from '@/assets/img/logo.png'
+import logo from '@/assets/img/galeraTrinity.jpg'
 import axiosInstance from '@/services/api';
 import { onMounted, ref } from 'vue';
 
@@ -49,7 +49,7 @@ onMounted(() => {
                 <div class="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
                     <!-- Logo -->
                     <RouterLink class="flex flex-shrink-0 items-center mr-4" to="/">
-                        <img class="h-10 w-auto" :src="logo" alt="Vue Jobs" />
+                        <img class="h-16 w-auto" :src="logo" alt="Vue Jobs" />
                         <span class="hidden md:block text-white text-2xl font-bold ml-2">Coloteiros de bolinho</span>
                     </RouterLink>
                     <div v-if="isValidUser" class="md:ml-auto">

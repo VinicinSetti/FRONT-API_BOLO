@@ -24,5 +24,5 @@ onMounted(() => {
     <Hero />
     <HomeCards />
     <JobListing :limit="3" :showButton="false" />
-    <TopList :limit="3" :showButton="true"/>
+    <TopList :showButton="true"/>
 </template>

@@ -40,11 +40,11 @@ const atualizar = async () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                if(props.user.qtd_bolin < (props.user.qtd_bolin += data.qtd_bolin)){
-                    props.user.qtd_total_bolin += data.qtd_bolin;
-                }
-                
-                
+            if (props.user.qtd_bolin < (props.user.qtd_bolin += data.qtd_bolin)) {
+                props.user.qtd_total_bolin += data.qtd_bolin;
+            }
+
+
         } else {
             console.error('Usuario sem permição para atualizar')
         }
@@ -81,21 +81,31 @@ const atualizar = async () => {
                             </div>
                             <div class="flex justify-center items-center">
                                 <div class="p-5">
-                                    <p class="block text-xl font-medium text-gray-600">Valor atual de bolinhos:</p>
-                                    <p class="p-3 flex justify-center items-center border border-gray-300">{{ user.qtd_bolin }}</p>
+                                    <div class="flex flex-row">
+                                        <p class="block text-xl font-medium text-gray-600 pr-3">Valor atual de bolinhos:
+                                        </p>
+                                        <p
+                                            class="p-3 flex justify-center items-center rounded-lg size-10 text-xl border border-gray-300">
+                                            {{ user.qtd_bolin }}</p>
+                                    </div>
+
                                     <form @submit.prevent="atualizar(); togglePopUp()" class="mt-6 space-y-4">
-                                        <label for="qtd_bolin" class="block text-xl font-medium text-gray-600">
-                                            Quantidade de bolinho há adicionar:
-                                        </label>
-                                        <input v-model="data.qtd_bolin" type="number"
-                                            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                                            placeholder="Digite a quantidade" required>
-                                        <button @click="atualizar(); togglePopUp()"
-                                            class="bg-green-500 hover:bg-green-600 text-white rounded-full w-full focus:outline-none focus:shadow-outline mt-0 block py-1 px-2"
-                                            type="button">
-                                            Atualizar
-                                        </button>
-                                    </form>
+                                        <div class="flex ">
+
+                                            <label for="qtd_bolin" class="flex justify-center items-center block text-xl pr-3 font-medium text-gray-600">
+                                                Quantidade de bolinho há adicionar:
+                                            </label>
+                                            <input v-model="data.qtd_bolin" type="number"
+                                                class="p-3 size-16 border border-gray-300 rounded-lg text-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                                placeholder="Digite a quantidade" required>
+                                            </div>
+                                            <button @click="atualizar(); togglePopUp()"
+                                                class="bg-green-500 hover:bg-green-600 text-white rounded-full w-full focus:outline-none focus:shadow-outline mt-0 block py-1 px-2"
+                                                type="button">
+                                                Atualizar
+                                            </button>
+                                        </form>
+
                                 </div>
                             </div>
                             <div class="flex justify-end">
@@ -120,7 +130,8 @@ const atualizar = async () => {
             </div> -->
 
             <h3 class="text-orange-500 mb-2 text-xl">Quantidade de bolinho a dever: {{ user.qtd_bolin }}</h3>
-            <h3 class="text-orange-500 mb-2 text-xl">Quantidade total de bolinho devidos: {{ user.qtd_total_bolin }}</h3>
+            <h3 class="text-orange-500 mb-2 text-xl">Quantidade total de bolinho devidos: {{ user.qtd_total_bolin }}
+            </h3>
 
             <!-- <div class="border border-gray-100 mb-5"></div> -->
 
