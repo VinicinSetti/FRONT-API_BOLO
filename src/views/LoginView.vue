@@ -24,10 +24,13 @@
 
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue';
-import { RouterLink, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import axiosInstance from '@/services/api'
+import { useToast } from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 
+const toast = useToast()
 
 const data = reactive({
   email: '',
@@ -35,20 +38,35 @@ const data = reactive({
 });
 const router = useRouter();
 
-async function submit() {
+const jaLogado = async () => {
   const token = localStorage.getItem('token');
-  if (token) {
-    router.push('/home');
+  if(token){
+    try {
+      const user_aut = await axiosInstance.get('/profile');
+      router.push('/home');
+    } catch (error) {
+      toast.error('Sessão expirada, realize o login novamente')
+    }
   }
+}
+
+async function submit() {
+
   try {
     const response = await axiosInstance.post('/sessions', {
       email: data.email,
       password: data.password,
     });
+
     localStorage.setItem('token', response.data.token); // Armazene o token retornado
     console.log('Login realizado com sucesso!');
     router.push('/home');
+    
   } catch (error) {
+
+    toast.error('Email ou senha incorretos', {
+      timeout: 2000
+    })
     console.error('Erro no login:', error.response?.data?.message || error.message);
   }
 }
@@ -57,6 +75,13 @@ async function submit() {
 
 
 onMounted(() => {
-  submit();
+  jaLogado();
 })
 </script>
+
+<style>
+.vue-toastification-toast--error {
+  background-color: #F44336;  /* Vermelho */
+  color: white;
+}
+</style>

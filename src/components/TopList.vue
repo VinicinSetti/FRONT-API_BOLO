@@ -29,10 +29,10 @@ onMounted(async () => {
     <section class="bg-blue-50 px-4 py-10">
         <div class="container-xl lg:container m-auto">
             <h2 class="text-3xl font-bold text-green-500 mb-6 text-center">
-                Devedores de bolinho
+                Maior devedor de bolinho
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <JobList v-for="user in users.slice(0, limit || users.length)" :key="user.id" :user="user" />
+                <JobList v-for="user in users.slice(0, 1)" :key="user.id" :user="user" />
             </div>
         </div>
     </section>

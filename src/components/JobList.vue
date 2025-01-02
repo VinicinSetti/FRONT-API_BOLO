@@ -20,7 +20,8 @@ const togglePopUp = () => {
 
 
 const data = reactive({
-    qtd_bolin: 0
+    qtd_bolin: 0,
+    qtd_total_bolin: 0
 });
 
 
@@ -28,7 +29,6 @@ const atualizar = async () => {
     try {
         const token = localStorage.getItem('token')
         const user_aut = await axiosInstance.get('/profile')
-        console.log(user_aut.data.email)
         if (user_aut.data.email === "Alex@teste.com") {
             const response = await axiosInstance.put(`/profile/${props.user.id}`, {
                 name: props.user.name,
@@ -40,7 +40,11 @@ const atualizar = async () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                props.user.qtd_bolin = data.qtd_bolin;
+                if(props.user.qtd_bolin < (props.user.qtd_bolin += data.qtd_bolin)){
+                    props.user.qtd_total_bolin += data.qtd_bolin;
+                }
+                
+                
         } else {
             console.error('Usuario sem permição para atualizar')
         }
@@ -81,7 +85,7 @@ const atualizar = async () => {
                                     <p class="p-3 flex justify-center items-center border border-gray-300">{{ user.qtd_bolin }}</p>
                                     <form @submit.prevent="atualizar(); togglePopUp()" class="mt-6 space-y-4">
                                         <label for="qtd_bolin" class="block text-xl font-medium text-gray-600">
-                                            Quantidade de bolinho:
+                                            Quantidade de bolinho há adicionar:
                                         </label>
                                         <input v-model="data.qtd_bolin" type="number"
                                             class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
@@ -116,6 +120,7 @@ const atualizar = async () => {
             </div> -->
 
             <h3 class="text-orange-500 mb-2 text-xl">Quantidade de bolinho a dever: {{ user.qtd_bolin }}</h3>
+            <h3 class="text-orange-500 mb-2 text-xl">Quantidade total de bolinho devidos: {{ user.qtd_total_bolin }}</h3>
 
             <!-- <div class="border border-gray-100 mb-5"></div> -->
 

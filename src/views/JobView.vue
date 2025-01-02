@@ -26,7 +26,8 @@ const addCaloteiro = async () => {
         name: data.name,
         email: data.email,
         password: data.password,
-        qtd_bolin: 0
+        qtd_bolin: 0,
+        qtd_total_bolin: 0,
     },
         {
             headers: {

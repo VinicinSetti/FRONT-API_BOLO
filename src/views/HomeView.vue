@@ -2,6 +2,7 @@
 import Hero from '@/components/Hero.vue';
 import HomeCards from '@/components/HomeCards.vue';
 import JobListing from '@/components/JobListings.vue';
+import TopList from '@/components/TopList.vue';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -22,5 +23,6 @@ onMounted(() => {
 <template>
     <Hero />
     <HomeCards />
-    <JobListing :limit="3" :showButton="true" />
+    <JobListing :limit="3" :showButton="false" />
+    <TopList :limit="3" :showButton="true"/>
 </template>
