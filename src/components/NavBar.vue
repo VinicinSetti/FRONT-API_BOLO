@@ -50,13 +50,13 @@ onMounted(() => {
                     <!-- Logo -->
                     <RouterLink class="flex flex-shrink-0 items-center mr-4" to="/">
                         <img class="h-16 w-auto" :src="logo" alt="Vue Jobs" />
-                        <span class="hidden md:block text-white text-2xl font-bold ml-2">Coloteiros de bolinho</span>
+                        <span class="hidden md:block text-white text-2xl font-bold ml-2">Caloteiros de bolinho</span>
                     </RouterLink>
                     <div v-if="isValidUser" class="md:ml-auto">
-                        <div class="flex space-x-2">
+                        <div class="flex space-x-2 pt-3">
                             <RouterLink to="/home" :class="[isActiveLink('/home') ? 'bg-green-900' : 'hover:bg-gray-900 hover:text-white',
                                 'text-white rounded-md px-3 py-2',
-                            ]">Home</RouterLink>
+                            ]">Home</RouterLink> 
                             <RouterLink to="/jobs" :class="[isActiveLink('/jobs') ? 'bg-green-900' : 'hover:bg-gray-900 hover:text-white',
                                 'text-white rounded-md px-3 py-2',
                             ]">Caloteiros</RouterLink>
